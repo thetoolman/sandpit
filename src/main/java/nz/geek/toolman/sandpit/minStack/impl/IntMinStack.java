@@ -4,61 +4,49 @@ import java.util.Stack;
 
 import nz.geek.toolman.sandpit.minStack.MinStack;
 
+/**
+ * parlour trick to re-use stack for prevous min storage. trick only works with numbers.
+ * 
+ * @author toolman
+ *
+ */
 public class IntMinStack extends Stack<Integer> implements MinStack<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	private Integer min = null;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see impl.MinStackInterface#push(java.lang.Integer)
-	 */
 	@Override
 	public Integer push(Integer value) {
 		Integer pushVal = value;
 
-		System.out.print("push: external push was " + value);
 		if (min == null) {
 			min = value;
+			
 		} else if (value < min) {
-			System.out.print(" switch! ");
-			pushVal = value + value - min;
+			pushVal = value + value - min; // pushVal will *always* be < val (new min) here
 			min = value;
-		} else {
-			System.out.print("         ");
 		}
-		System.out.println(" min is " + min + " internal push is " + pushVal);
+
 		return super.push(pushVal);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see impl.MinStackInterface#pop()
-	 */
+
 	@Override
 	public synchronized Integer pop() {
 		Integer popVal = super.pop();
 		Integer returnVal = popVal;
 
-		System.out.print("pop: internal pop was " + popVal + " min was " + min);
 		if (popVal < min) {
 			returnVal = min;
-			min = min + min - popVal;
+			min = min + min - popVal; //re-constitute old min
+			
 		} else if (this.size() == 0) {
 			min = null;
 		}
-		System.out.println(" new min is " + min + " external pop is " + returnVal);
 
 		return returnVal;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see impl.MinStackInterface#getMin()
-	 */
 	public Integer getMin() {
 		return min;
 	}

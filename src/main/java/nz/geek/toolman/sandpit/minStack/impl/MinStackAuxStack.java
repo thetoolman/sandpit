@@ -5,7 +5,7 @@ import java.util.Stack;
 import nz.geek.toolman.sandpit.minStack.MinStack;
 
 /**
- * Keep an auxillery stack of the same depth, but with the current minimum on it
+ * Keep an auxillery stack of the same depth, but with the current minimum on top. O(1) lookup of min :)
  * 
  * @author toolman
  *

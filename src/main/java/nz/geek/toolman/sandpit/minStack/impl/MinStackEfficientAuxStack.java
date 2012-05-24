@@ -4,6 +4,16 @@ import java.util.Stack;
 
 import nz.geek.toolman.sandpit.minStack.MinStack;
 
+/**
+ * Keep an auxillery stack for min value, but only push new <= items, and pop only off min if ==
+ * This means that the aux stack will be <= main stack in length rather than always same length.
+ * 
+ * O(1) lookup of min :)
+ * 
+ * @author toolman
+ *
+ * @param <T>
+ */
 public class MinStackEfficientAuxStack<T extends Comparable<T>> extends Stack<T> implements MinStack<T> {
 
 	Stack<T> auxMinStack = new Stack<T>();
